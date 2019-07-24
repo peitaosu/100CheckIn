@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'checkin',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +55,7 @@ ROOT_URLCONF = 'checkin.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR+"/checkin/templates",],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -118,3 +119,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "checkin/templates"), os.path.join(BASE_DIR, "checkin/static")]
+
+APPEND_SLASH=False
+
+# media root and url for media upload
+MEDIA_ROOT = BASE_DIR + '/media/'
+
+MEDIA_URL = '/media/'
+
+# set MAINTENANCE_MODE=True when in maintenance
+MAINTENANCE_MODE=False
