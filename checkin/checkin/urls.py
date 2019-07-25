@@ -18,9 +18,13 @@ from django.contrib import admin
 from django.contrib.auth import urls as auth_urls
 from django.conf import settings
 from django.conf.urls.static import static
+from . import views
 
 admin.site.site_header = '100 Checkin Administration'
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'^user(?P<action>(/[a-z]*)*)', views.user),
+    url(r'^event(?P<action>(/[a-z]*)*)', views.event),
+    url(r'^admin', admin.site.urls),
+    url(r'^$', views.index)
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
