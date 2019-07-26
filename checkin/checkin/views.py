@@ -106,9 +106,24 @@ def user(request, action):
         if user.password == hash_code(request.POST["password"]):
             request.session["email"] = user.email
             request.session["user_login"] = True
+    elif action == "/update":
+        if if_not_login(request):
+            return redirect("/")
+        user = models.User.objects.get(email=request.session["email"])
+        user.name = request.POST["name"]
+        """
+        if "picture" in request.FILES:
+            file_upload = request.FILES['picture']
+            fs = FileSystemStorage()
+            file_name = fs.save(file_upload.name, file_upload)
+            file_url = fs.url(file_name)
+            user.picture = file_url
+        """
+        user.save()
     elif action == "/logout":
         request.session.flush()
     context = show_login_user(request, {})
+    context["profile"] = models.User.objects.get(email=request.session["email"])
     return render(request, 'user.html', context)
 
 def index(request):
