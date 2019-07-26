@@ -1,0 +1,20 @@
+<html>
+    {% include "head.html" %}
+    <body>
+        <div class="container">
+            {% include "navbar.html" %}
+
+            {% if MAINTENANCE_MODE == True %}
+                {% include "maintenance.html" %}
+            {% else %}
+                {% if has_alert %}
+                    {% include "alert.html" %}
+                {% endif %}
+                {% block content %}
+                {% endblock %}
+            {% endif %}
+
+            {% include "footer.html" %}
+        </div>
+    </body>
+</html>
