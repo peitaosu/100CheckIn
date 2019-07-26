@@ -87,7 +87,9 @@ def user(request, action):
                 "alertmessage": "You email address was already registered, please check again."
             }
             return render(request, 'index.html', context)
-        new_user = models.User(email=request.POST["email"], name=request.POST["name"], password=hash_code(request.POST["password"]))
+        new_user = models.User(email=request.POST["email"], password=hash_code(request.POST["password"]))
+        if "name" in request.POST:
+            new_user.name = request.POST["name"]
         new_user.save()
         request.session["email"] = new_user.email
         request.session["user_login"] = True
@@ -107,7 +109,7 @@ def user(request, action):
     elif action == "/logout":
         request.session.flush()
     context = show_login_user(request, {})
-    return redirect("/")
+    return render(request, 'user.html', context)
 
 def index(request):
     context = {}

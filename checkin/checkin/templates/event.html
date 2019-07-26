@@ -2,32 +2,35 @@
 
 {% block content %}
 <div>
-	<div class="row">
-		<div class="panel panel-default">
-			<div class="panel-heading">Check In</div>
-			<table class="table">
-				<thead>
-					<tr>
-						<th>#</th>
-						<th>Title</th>
-						<th>Description</th>
-						<th>Status</th>
-						<th>Operation</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for event in all %}
-					<tr>
-						<td>event.eid</td>
-						<td>event.title</td>
-						<td>event.description</td>
-						<td>event.status</td>
-						<td><a href="/event/detail/?eid={{ event.eid }}"><i class="glyphicon glyphicon-info-sign"></i>&nbsp;&nbsp;Detail</a></td>
-					</tr>
-					{% endfor %}
-				</tbody>
-			</table>
-		</div>
-	</div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">Check In</div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                            <th>Operation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for event in all %}
+                        <tr>
+                            <td>{{ event.eid }}</td>
+                            <td>{{ event.title }}</td>
+                            <td>{{ event.description }}</td>
+                            <td>{{ event.status }}</td>
+                            <td><a href="/event/detail/?eid={{ event.eid }}"><i
+                                        class="glyphicon glyphicon-info-sign"></i>&nbsp;&nbsp;Detail</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

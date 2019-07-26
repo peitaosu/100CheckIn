@@ -4,8 +4,8 @@ class Event(models.Model):
     eid = models.IntegerField(unique=True)
     title = models.CharField(max_length=64)
     description = models.CharField(max_length=128)
-    picture = models.ImageField()
-    checkin_time = models.DateTimeField()
+    picture = models.ImageField(blank=True)
+    checkin_time = models.DateTimeField(null=True, blank=True)
 
     EVENT_STATUS_CHOICES = (
         ('ADDED', 'Event Added'),
@@ -13,7 +13,7 @@ class Event(models.Model):
     )
 
     status = models.CharField(
-        max_length=2,
+        max_length=5,
         choices=EVENT_STATUS_CHOICES,
         default='ADDED',
     )
