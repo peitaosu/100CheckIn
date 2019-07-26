@@ -60,21 +60,21 @@ def event(request, action):
         return render(request, 'detail.html', context)
     elif action == "/update":
         event = models.Event.objects.get(eid=request.GET["eid"])
-		# TODO - update event
-		context["detail"] = event
+        # TODO - update event
+        context["detail"] = event
         return render(request, 'detail.html', context)
-	elif action == "/link":
-		link_user = models.User.objects.get(email=request.session["email"])
-		link_events = models.User_Event.objects.all().filter(user=link_user)
-		for link_event in link_events:
-			new_link = models.User_Event(user=current_user, event=link_event)
-			new_link.save()
-		return redirect("/event")
+    elif action == "/link":
+        link_user = models.User.objects.get(email=request.session["email"])
+        link_events = models.User_Event.objects.all().filter(user=link_user)
+        for link_event in link_events:
+            new_link = models.User_Event(user=current_user, event=link_event)
+            new_link.save()
+        return redirect("/event")
     else:
-		all_events = models.User_Event.objects.all().filter(user=current_user)
-		for user_event in all_events:
+        all_events = models.User_Event.objects.all().filter(user=current_user)
+        for user_event in all_events:
             context["all"].append(user_event.event)
-		return render(request, 'event.html', context)
+        return render(request, 'event.html', context)
 
 def user(request, action):
     if settings.MAINTENANCE_MODE:
@@ -106,7 +106,7 @@ def user(request, action):
             request.session["user_login"] = True
     elif action == "/logout":
         request.session.flush()
-	context = show_login_user(request, {})
+    context = show_login_user(request, {})
     return redirect("/")
 
 def index(request):
