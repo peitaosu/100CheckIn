@@ -106,6 +106,8 @@ def user(request, action):
         if user.password == hash_code(request.POST["password"]):
             request.session["email"] = user.email
             request.session["user_login"] = True
+            if user.name != "":
+                return redirect("/")
     elif action == "/update":
         if if_not_login(request):
             return redirect("/")
