@@ -1,4 +1,18 @@
 {% extends 'frame.html' %}
 
 {% block content %}
+
+{% if detail.status == DONE %}
+<div class="panel panel-success">
+{% else %}
+<div class="panel panel-primary">
+{% endif %}
+    <div class="panel-heading">
+        <h3 class="panel-title">{{ detail.title }}</h3>
+    </div>
+    <div class="panel-body">
+        {{ detail.description }}
+    </div>
+</div>
+
 {% endblock %}
