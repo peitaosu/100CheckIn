@@ -46,7 +46,7 @@ def event(request, action):
     if action == "/add":
         if if_not_staff(request):
             return redirect("/")
-        new_event = models.Event(eid=(models.Event.objects.all().last().eid + 1), title=request.POST["title"], description=request.POST["description"], picture=request.POST["picture"])
+        new_event = models.Event(eid=(models.Event.objects.all().last().eid + 1), ueid=(models.User_Event.objects.all().filter(user=current_user).count() + 1), title=request.POST["title"], description=request.POST["description"], picture=request.POST["picture"])
         new_event.save()
         return redirect("/event")
     elif action == "/delete":
@@ -132,4 +132,4 @@ def index(request):
     context = {}
     context["MAINTENANCE_MODE"] = settings.MAINTENANCE_MODE
     context = show_login_user(request, context)
-    return render(request, 'index.html', context)
+    return render(request, 'add.html', context)
