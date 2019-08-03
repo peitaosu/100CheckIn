@@ -44,8 +44,6 @@ def event(request, action):
     context = show_login_user(request, context)
     current_user = models.User.objects.get(email=request.session["email"])
     if action == "/add":
-        if if_not_staff(request):
-            return redirect("/")
         new_event = models.Event(eid=(models.Event.objects.all().last().eid + 1), ueid=(models.User_Event.objects.all().filter(user=current_user).count() + 1), title=request.POST["title"], description=request.POST["description"], picture=request.POST["picture"])
         new_event.save()
         return redirect("/event")
