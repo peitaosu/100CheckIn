@@ -4,3 +4,22 @@ body{
 tbody tr td{
     font-family: Consolas, 'Courier New', Courier, 'Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif!important;
 }
+
+#view {
+    position: relative;
+}
+
+#preview {
+    width: 100%;
+    height: auto;
+}
+
+#full {
+    width: 4096px;
+    height: 4096px;
+    display: none;
+}
+
+#canvas {
+    display: none;
+}

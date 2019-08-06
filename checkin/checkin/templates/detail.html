@@ -13,6 +13,22 @@
     <div class="panel-body">
         {{ detail.description }}
     </div>
+    {% if detail.picture %}
+    <div class="panel-body">
+        <label for="source">Source: </label>
+        <select id="source"></select>
+        <button id="take" type="button" class="btn btn-primary btn-block">Take</button>
+        <div id="view">
+            <video id="preview"></video>
+            <video id="full"></video>
+            <canvas id="canvas"></canvas>
+        </div>
+    </div>
+    {% else %}
+    <div class="panel-body">
+        <img src="{{ detail.picture }}" class="img-rounded img-responsive">
+    </div>
+    {% endif %}
 </div>
 
 {% endblock %}
