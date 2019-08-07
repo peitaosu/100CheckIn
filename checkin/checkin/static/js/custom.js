@@ -4,12 +4,17 @@
     let full = document.getElementById('full');
     let canvas = document.getElementById('canvas');
     let take = document.getElementById('take');
+    let retake = document.getElementById('retake');
+    let take_div = document.getElementById('take_div');
+    let retake_div = document.getElementById('retake_div');
     let photo = document.getElementById('photo');
     let source = document.getElementById('source');
     source.onchange = getStream;
     let videoPlaying = false;
     let photoCaptured = false;
     let angle = 0;
+
+    retake_div.style.visibility = "hidden";
 
     navigator.mediaDevices.enumerateDevices()
         .then(gotDevices).then(getStream)
@@ -67,8 +72,15 @@
             canvas.getContext('2d').drawImage(full, 0, 0);
             let data = canvas.toDataURL('image/png');
             photo.setAttribute('src', data);
+            take_div.style.visibility = "hidden";
+            retake_div.style.visibility = "visible";
             photoCaptured = true;
         }
+    }, false);
+
+    retake.addEventListener('click', function () {
+        retake_div.style.visibility = "hidden";
+        take_div.style.visibility = "visible";
     }, false);
 
 })();

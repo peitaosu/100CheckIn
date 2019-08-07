@@ -15,14 +15,21 @@
     </div>
     {% if detail.picture %}
     <div class="panel-body">
-        <label for="source">Source: </label>
-        <select id="source"></select>
-        <button id="take" type="button" class="btn btn-primary btn-block">Take</button>
-        <div id="view">
-            <video id="preview"></video>
-            <video id="full"></video>
-            <canvas id="canvas"></canvas>
+        <div id="take_div">
+            <label for="source">Source: </label>
+            <select id="source"></select>
+            <button id="take" type="button" class="btn btn-primary btn-block">Take</button>
+            <div id="view">
+                <video id="preview"></video>
+                <video id="full"></video>
+                <canvas id="canvas"></canvas>
+            </div>        
         </div>
+        <div id="retake_div">
+            <button id="retake" type="button" class="btn btn-primary btn-block">Retake</button>
+            <img id="photo" src="" class="img-rounded img-responsive">
+        </div>
+        <button id="done" type="button" class="btn btn-primary btn-success">Done</button>
     </div>
     {% else %}
     <div class="panel-body">
