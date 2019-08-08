@@ -58,7 +58,8 @@ def event(request, action):
         return render(request, 'detail.html', context)
     elif action == "/update":
         event = models.Event.objects.get(eid=request.GET["eid"])
-        # TODO - update event
+        event.picture = request.POST["img_save"]
+        event.save()
         context["detail"] = event
         return render(request, 'detail.html', context)
     elif action == "/link":

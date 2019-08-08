@@ -29,7 +29,11 @@
             <button id="retake" type="button" class="btn btn-primary btn-block">Retake</button>
             <img id="photo" src="" class="img-rounded img-responsive">
         </div>
-        <button id="done" type="button" class="btn btn-primary btn-success">Done</button>
+        <form method="post">
+        {% csrf_token %}
+        <input id="img_save" type="text" name="img_save" value=""/>
+        <button id="done" type="button" class="btn btn-primary btn-success" formaction="/event/update/?eid={{ detail.eid }}">Done</button>
+        </form>
     </div>
     {% else %}
     <div class="panel-body">

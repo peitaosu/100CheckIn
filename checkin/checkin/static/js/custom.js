@@ -9,12 +9,14 @@
     let retake_div = document.getElementById('retake_div');
     let photo = document.getElementById('photo');
     let source = document.getElementById('source');
+    let img_save = document.getElementById('img_save');
     source.onchange = getStream;
     let videoPlaying = false;
     let photoCaptured = false;
     let angle = 0;
 
     retake_div.style.visibility = "hidden";
+    img_save.style.visibility = "hidden";
 
     navigator.mediaDevices.enumerateDevices()
         .then(gotDevices).then(getStream)
@@ -72,6 +74,7 @@
             canvas.getContext('2d').drawImage(full, 0, 0);
             let data = canvas.toDataURL('image/png');
             photo.setAttribute('src', data);
+            img_save.setAttribute('value', data);
             take_div.style.visibility = "hidden";
             retake_div.style.visibility = "visible";
             photoCaptured = true;
