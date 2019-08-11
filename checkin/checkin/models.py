@@ -5,7 +5,7 @@ class Event(models.Model):
     ueid = models.IntegerField()
     title = models.CharField(max_length=64)
     description = models.CharField(max_length=128)
-    picture = models.CharField(blank=True)
+    picture = models.TextField(blank=True)
     checkin_time = models.DateTimeField(null=True, blank=True)
 
     EVENT_STATUS_CHOICES = (
