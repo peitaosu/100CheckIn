@@ -44,8 +44,15 @@ def event(request, action):
     context = show_login_user(request, context)
     current_user = models.User.objects.get(email=request.session["email"])
     if action == "/add":
-        new_event = models.Event(eid=(models.Event.objects.all().last().eid + 1), ueid=(models.User_Event.objects.all().filter(user=current_user).count() + 1), title=request.POST["title"], description=request.POST["description"], picture=request.POST["picture"])
+        return render(request, 'add.html', context)
+    elif action == "/new":
+        eid = 0
+        if len(models.Event.objects.all()) > 0:
+            eid = models.Event.objects.all().last().eid + 1
+        new_event = models.Event(eid=eid, ueid=(models.User_Event.objects.all().filter(user=current_user).count() + 1), title=request.POST["title"], description=request.POST["description"])
         new_event.save()
+        new_user_event = models.User_Event(user=current_user, event=new_event)
+        new_user_event.save()
         return redirect("/event")
     elif action == "/delete":
         event = models.Event.objects.get(eid=request.GET["eid"])
@@ -131,4 +138,4 @@ def index(request):
     context = {}
     context["MAINTENANCE_MODE"] = settings.MAINTENANCE_MODE
     context = show_login_user(request, context)
-    return render(request, 'add.html', context)
+    return render(request, 'event.html', context)
