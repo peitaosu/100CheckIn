@@ -15,9 +15,6 @@
     let photoCaptured = false;
     let angle = 0;
 
-    retake_div.style.visibility = "hidden";
-    img_save.style.visibility = "hidden";
-
     navigator.mediaDevices.enumerateDevices()
         .then(gotDevices).then(getStream)
 

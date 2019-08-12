@@ -23,3 +23,11 @@ tbody tr td{
 #canvas {
     display: none;
 }
+
+#retake_div {
+    visibility: hidden;
+}
+
+#img_save {
+    visibility: hidden;
+}
