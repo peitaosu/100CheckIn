@@ -130,4 +130,4 @@ def index(request):
     context = {}
     context["MAINTENANCE_MODE"] = settings.MAINTENANCE_MODE
     context = show_login_user(request, context)
-    return render(request, 'event.html', context)
+    return render(request, 'index.html', context)
