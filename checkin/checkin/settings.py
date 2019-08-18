@@ -124,10 +124,5 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "checkin/templates"), os.path.join(BA
 
 APPEND_SLASH=False
 
-# media root and url for media upload
-MEDIA_ROOT = BASE_DIR + '/media/'
-
-MEDIA_URL = '/media/'
-
 # set MAINTENANCE_MODE=True when in maintenance
 MAINTENANCE_MODE=False

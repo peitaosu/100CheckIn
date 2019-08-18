@@ -27,4 +27,4 @@ urlpatterns = [
     url(r'^event(?P<action>(/[a-z]*)*)', views.event),
     url(r'^admin', admin.site.urls),
     url(r'^$', views.index)
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
