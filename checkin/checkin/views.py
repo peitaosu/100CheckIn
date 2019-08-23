@@ -78,8 +78,16 @@ def event(request, action):
         return redirect("/event")
     else:
         all_events = models.User_Event.objects.all().filter(user=current_user)
+        total = len(all_events)
+        complete = 0
         for user_event in all_events:
             context["all"].append(user_event.event)
+            if user_event.event.status == "DONE":
+                complete += 1
+        if complete == 0:
+            context["complete"] = 0
+        else:
+            context["complete"] = int(complete/total * 100)
         return render(request, 'event.html', context)
 
 def user(request, action):

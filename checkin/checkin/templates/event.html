@@ -4,8 +4,16 @@
 <div>
     <div class="row">
         <div class="col-md-12">
+            <div class="panel-heading">Progress</div>
+            <div class="progress progress-striped active">
+                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ complete }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ complete }}%">
+                <span class="sr-only">{{ complete }}% Complete (success)</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
             <div class="panel panel-default">
-                <div class="panel-heading">Check In</div>
+                <div class="panel-heading">List</div>
                 <table class="table">
                     <thead>
                         <tr>
