@@ -10,13 +10,41 @@
     let photo = document.getElementById('photo');
     let source = document.getElementById('source');
     let img_save = document.getElementById('img_save');
-    source.onchange = getStream;
     let videoPlaying = false;
     let photoCaptured = false;
-    let angle = 0;
 
-    navigator.mediaDevices.enumerateDevices()
-        .then(gotDevices).then(getStream)
+    function hasCamera(error) {
+        hasCameraPermission = true;
+        source.onchange = getStream;
+        navigator.mediaDevices.enumerateDevices()
+        .then(gotDevices).then(getStream);
+        take.addEventListener('click', function () {
+            if (videoPlaying) {
+                canvas.width = full.videoWidth;
+                canvas.height = full.videoHeight;
+                canvas.getContext('2d').drawImage(full, 0, 0);
+                let data = canvas.toDataURL('image/png');
+                photo.setAttribute('src', data);
+                img_save.setAttribute('value', data);
+                take_div.style.visibility = "hidden";
+                retake_div.style.visibility = "visible";
+                photoCaptured = true;
+            }
+        }, false);
+    
+        retake.addEventListener('click', function () {
+            retake_div.style.visibility = "hidden";
+            take_div.style.visibility = "visible";
+        }, false);    
+    }
+
+    function noCamera(error) {
+        if (error.name == 'NotAllowedError') {
+            hasCameraPermission = false;
+            take_div.style.visibility = "none";
+            retake_div.style.visibility = "none";
+        }
+    }
 
     function gotDevices(deviceInfos) {
         for (var i = 0; i !== deviceInfos.length; ++i) {
@@ -64,23 +92,12 @@
         };
     }
 
-    take.addEventListener('click', function () {
-        if (videoPlaying) {
-            canvas.width = full.videoWidth;
-            canvas.height = full.videoHeight;
-            canvas.getContext('2d').drawImage(full, 0, 0);
-            let data = canvas.toDataURL('image/png');
-            photo.setAttribute('src', data);
-            img_save.setAttribute('value', data);
-            take_div.style.visibility = "hidden";
-            retake_div.style.visibility = "visible";
-            photoCaptured = true;
-        }
-    }, false);
+    var default_constraints = {
+        audio: false,
+        video: true
+    };
 
-    retake.addEventListener('click', function () {
-        retake_div.style.visibility = "hidden";
-        take_div.style.visibility = "visible";
-    }, false);
+    navigator.mediaDevices.getUserMedia(default_constraints)
+    .then(hasCamera, noCamera);
 
 })();
