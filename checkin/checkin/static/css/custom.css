@@ -21,10 +21,6 @@ body{
     display: none;
 }
 
-#retake_div {
-    visibility: hidden;
-}
-
 #img_save {
-    visibility: hidden;
+    display: none;
 }

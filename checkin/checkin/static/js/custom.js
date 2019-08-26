@@ -14,6 +14,7 @@
     let photoCaptured = false;
 
     function hasCamera(error) {
+        console.log("Yes");
         hasCameraPermission = true;
         source.onchange = getStream;
         navigator.mediaDevices.enumerateDevices()
@@ -26,19 +27,20 @@
                 let data = canvas.toDataURL('image/png');
                 photo.setAttribute('src', data);
                 img_save.setAttribute('value', data);
-                take_div.style.visibility = "hidden";
-                retake_div.style.visibility = "visible";
+                take_div.style.display = "none";
+                retake_div.style.display = "";
                 photoCaptured = true;
             }
         }, false);
     
         retake.addEventListener('click', function () {
-            retake_div.style.visibility = "hidden";
-            take_div.style.visibility = "visible";
+            retake_div.style.display = "none";
+            take_div.style.display = "";
         }, false);    
     }
 
     function noCamera(error) {
+        console.log("No");
         if (error.name == 'NotAllowedError') {
             hasCameraPermission = false;
             take_div.style.visibility = "none";
