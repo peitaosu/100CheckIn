@@ -5,6 +5,8 @@
 {% if detail.status == DONE %}
 <div class="panel panel-success">
 {% else %}
+{% load static %}
+<script type="text/javascript" src={% static "js/custom.js" %}></script>
 <div class="panel panel-primary">
 {% endif %}
     <div class="panel-heading">
