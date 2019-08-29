@@ -14,7 +14,6 @@
     let photoCaptured = false;
 
     function hasCamera(error) {
-        console.log("Yes");
         hasCameraPermission = true;
         source.onchange = getStream;
         navigator.mediaDevices.enumerateDevices()
@@ -40,7 +39,6 @@
     }
 
     function noCamera(error) {
-        console.log("No");
         if (error.name == 'NotAllowedError') {
             hasCameraPermission = false;
             take_div.style.visibility = "none";
