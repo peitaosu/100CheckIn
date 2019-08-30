@@ -64,7 +64,7 @@ def event(request, action):
         context["detail"] = event
         return render(request, 'detail.html', context)
     elif action == "/update":
-        event = models.Event.objects.get(eid=request.GET["eid"])
+        event = models.Event.objects.get(eid=request.POST["eid"])
         event.picture = request.POST["img_save"]
         event.save()
         context["detail"] = event
