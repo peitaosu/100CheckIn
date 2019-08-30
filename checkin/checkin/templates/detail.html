@@ -26,8 +26,8 @@
             </div>        
         </div>
         <div id="retake_div">
-            <button id="retake" type="button" class="btn btn-primary btn-block">Retake</button>
             <img id="photo" src="" class="img-rounded img-responsive">
+            <button id="retake" type="button" class="btn btn-primary btn-block">Retake</button>
             <form method="post">
                 {% csrf_token %}
                 <input id="img_save" type="text" name="img_save" value=""/>
