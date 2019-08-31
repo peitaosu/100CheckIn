@@ -5,6 +5,7 @@ class Event(models.Model):
     ueid = models.IntegerField()
     title = models.CharField(max_length=64)
     description = models.CharField(max_length=128)
+    note = models.CharField(null=True, blank=True, max_length=128)
     picture = models.TextField(blank=True)
     checkin_time = models.DateTimeField(null=True, blank=True)
 

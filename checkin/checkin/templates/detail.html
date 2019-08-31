@@ -32,6 +32,8 @@
                 {% csrf_token %}
                 <input id="img_save" type="text" name="img_save" value=""/>
                 <input id="eid" type="text" name="eid" value="{{ detail.eid }}"/>
+                <label>Note</label>
+                <textarea id="note" name="note" rows="3"></textarea>
                 <button id="done" type="submit" class="btn btn-primary btn-success" formaction="/event/update">Done</button>
             </form>
         </div>
