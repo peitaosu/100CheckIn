@@ -128,6 +128,14 @@ def user(request, action):
             return redirect("/")
         user = models.User.objects.get(email=request.session["email"])
         user.name = request.POST["name"]
+        user.link = request.POST["link"]
+        if models.User.objects.filter(email=user.link).count() == 0:
+            context = {
+                "has_alert": True,
+                "alertclass": "alert-danger",
+                "alertmessage": "The user email you want to link {} is not exists. Please check the email again.".format(user.link)
+            }
+            return render(request, 'index.html', context)
         user.save()
     elif action == "/logout":
         request.session.flush()
