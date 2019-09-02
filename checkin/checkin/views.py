@@ -139,6 +139,7 @@ def user(request, action):
         user.save()
     elif action == "/logout":
         request.session.flush()
+        return redirect("/")
     context = show_login_user(request, {})
     context["profile"] = models.User.objects.get(email=request.session["email"])
     return render(request, 'user.html', context)
