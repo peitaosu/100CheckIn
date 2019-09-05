@@ -27,6 +27,7 @@ class User(models.Model):
     password = models.CharField(max_length=256)
     email = models.EmailField(unique=True)
     name = models.CharField(max_length=64, blank=True)
+    link = models.EmailField(unique=True)
 
     def __str__(self):
         return self.name

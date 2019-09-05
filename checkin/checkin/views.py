@@ -136,11 +136,36 @@ def user(request, action):
                     "alertclass": "alert-danger",
                     "alertmessage": "The user email you want to link {} is not exists. Please check the email again.".format(user.link)
                 }
+                context = show_login_user(request, context)
                 return render(request, 'index.html', context)
         user.save()
     elif action == "/logout":
         request.session.flush()
         return redirect("/")
+    elif action == "/link":
+        if if_not_login(request):
+            return redirect("/")
+        user = models.User.objects.get(email=request.session["email"])
+        if user.link == "":
+            context = {
+                "has_alert": True,
+                "alertclass": "alert-danger",
+                "alertmessage": "You haven't link a user. Please link a user with email in your profile page."
+            }
+            context = show_login_user(request, context)
+            return render(request, 'index.html', context)
+        linked_user = models.User.objects.get(email=user.link)
+        if linked_user.link != user.email:
+            context = {
+                "has_alert": True,
+                "alertclass": "alert-danger",
+                "alertmessage": "The user you linked haven't link you yet. Please ask him\her to link you with your email in his\her profile page."
+            }
+            context = show_login_user(request, context)
+            return render(request, 'index.html', context)
+        context["profile"] = linked_user
+        context["can_modify"] = False
+        return render(request, 'user.html', context)
     context = show_login_user(request, {})
     context["profile"] = models.User.objects.get(email=request.session["email"])
     return render(request, 'user.html', context)
