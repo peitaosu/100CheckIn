@@ -79,6 +79,9 @@ def event(request, action):
         return redirect("/event")
     else:
         all_events = models.User_Event.objects.all().filter(user=current_user)
+        if current_user.link != "":
+            linked_user_all_events = models.User_Event.objects.all().filter(user=models.User.objects.get(email=current_user.link))
+            all_events.append(linked_user_all_events)
         total = len(all_events)
         complete = 0
         for user_event in all_events:
