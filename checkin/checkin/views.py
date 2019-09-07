@@ -70,13 +70,6 @@ def event(request, action):
         event.save()
         context["detail"] = event
         return render(request, 'detail.html', context)
-    elif action == "/link":
-        link_user = models.User.objects.get(email=request.session["email"])
-        link_events = models.User_Event.objects.all().filter(user=link_user)
-        for link_event in link_events:
-            new_link = models.User_Event(user=current_user, event=link_event)
-            new_link.save()
-        return redirect("/event")
     else:
         all_events = models.User_Event.objects.all().filter(user=current_user)
         if current_user.link != "":
