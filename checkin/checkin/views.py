@@ -161,6 +161,7 @@ def user(request, action):
             return render(request, 'index.html', context)
         context["profile"] = linked_user
         context["can_modify"] = False
+        context = show_login_user(request, context)
         return render(request, 'user.html', context)
     context = show_login_user(request, {})
     context["profile"] = models.User.objects.get(email=request.session["email"])
