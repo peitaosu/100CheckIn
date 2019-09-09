@@ -21,7 +21,7 @@
                             <th>Title</th>
                             <th>Description</th>
                             <th>Status</th>
-                            <th>Operation</th>
+                            <th>Check-In</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -31,7 +31,7 @@
                             <td>{{ event.title }}</td>
                             <td>{{ event.description }}</td>
                             {% if event.status == "DONE" %}
-                            <td>&nbsp;&nbsp;&nbsp;&nbsp;<i class="glyphicon glyphicon-ok-sign"></i></td>
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;<i class="glyphicon glyphicon-ok-sign"></i>{{ event.checkin_time }}</td>
                             {% else %}
                             <td>&nbsp;&nbsp;&nbsp;&nbsp;<i class="glyphicon glyphicon-plus-sign"></i></td>
                             {% endif %}
