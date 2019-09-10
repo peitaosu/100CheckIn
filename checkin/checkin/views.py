@@ -88,10 +88,12 @@ def event(request, action):
                 context["all"].append(user_event.event)
                 if user_event.event.status == "DONE":
                     complete += 1
+        context["total"] = total
+        context["complete"] = complete
         if complete == 0:
-            context["complete"] = 0
+            context["percent"] = 0
         else:
-            context["complete"] = int(complete/total * 100)
+            context["percent"] = (complete * 100) / total
         return render(request, 'event.html', context)
 
 def user(request, action):
