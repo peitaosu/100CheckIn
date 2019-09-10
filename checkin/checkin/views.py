@@ -71,16 +71,20 @@ def event(request, action):
         context["detail"] = event
         return render(request, 'detail.html', context)
     else:
-        all_events = models.User_Event.objects.all().filter(user=current_user)
-        if current_user.link != "":
-            linked_user_all_events = models.User_Event.objects.all().filter(user=models.User.objects.get(email=current_user.link))
-            all_events.append(linked_user_all_events)
-        total = len(all_events)
+        all_my_events = models.User_Event.objects.all().filter(user=current_user)
+        total = len(all_my_events)
         complete = 0
-        for user_event in all_events:
+        for user_event in all_my_events:
             context["all"].append(user_event.event)
             if user_event.event.status == "DONE":
                 complete += 1
+        if current_user.link != "":
+            all_linked_user_events = models.User_Event.objects.all().filter(user=models.User.objects.get(email=current_user.link))
+            total =  total + len(all_linked_user_events)
+            for user_event in all_linked_user_events:
+                context["all"].append(user_event.event)
+                if user_event.event.status == "DONE":
+                    complete += 1
         if complete == 0:
             context["complete"] = 0
         else:
@@ -135,6 +139,7 @@ def user(request, action):
                 context = show_login_user(request, context)
                 return render(request, 'index.html', context)
         user.save()
+        return redirect("/")
     elif action == "/logout":
         request.session.flush()
         return redirect("/")
@@ -164,6 +169,7 @@ def user(request, action):
         context = show_login_user(request, context)
         return render(request, 'user.html', context)
     context = show_login_user(request, {})
+    context["can_modify"] = True
     context["profile"] = models.User.objects.get(email=request.session["email"])
     return render(request, 'user.html', context)
 
