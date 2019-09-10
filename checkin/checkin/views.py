@@ -10,6 +10,7 @@ import subprocess
 import json
 import sqlite3
 import hashlib
+import datetime
 from sqlite3 import OperationalError
 from . import models
 
@@ -67,6 +68,8 @@ def event(request, action):
         event = models.Event.objects.get(eid=request.POST["eid"])
         event.picture = request.POST["img_save"]
         event.note = request.POST["note"]
+        event.status = "DONE"
+        event.checkin_time = datetime.datetime.now()
         event.save()
         context["detail"] = event
         return render(request, 'detail.html', context)
