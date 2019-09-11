@@ -73,6 +73,10 @@ def event(request, action):
         event.save()
         context["detail"] = event
         return render(request, 'detail.html', context)
+    elif action == "/delete":
+        event = models.Event.objects.get(eid=request.POST["eid"])
+        event.delete()
+        return redirect("/event")
     else:
         all_my_events = models.User_Event.objects.all().filter(user=current_user)
         total = len(all_my_events)
