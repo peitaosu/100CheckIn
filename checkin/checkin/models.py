@@ -2,7 +2,6 @@ from django.db import models
 
 class Event(models.Model):
     eid = models.IntegerField(unique=True)
-    ueid = models.IntegerField()
     title = models.CharField(max_length=64)
     description = models.CharField(max_length=128)
     note = models.CharField(null=True, blank=True, max_length=128)

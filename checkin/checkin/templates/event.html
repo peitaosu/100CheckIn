@@ -27,7 +27,7 @@
                     <tbody>
                         {% for event in all %}
                         <tr>
-                            <td>{{ event.ueid }}</td>
+                            <td>{{ forloop.counter }}</td>
                             <td>{{ event.title }}</td>
                             <td>{{ event.description }}</td>
                             {% if event.status == "DONE" %}

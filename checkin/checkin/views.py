@@ -50,7 +50,7 @@ def event(request, action):
         eid = 0
         if len(models.Event.objects.all()) > 0:
             eid = models.Event.objects.all().last().eid + 1
-        new_event = models.Event(eid=eid, ueid=(models.User_Event.objects.all().filter(user=current_user).count() + 1), title=request.POST["title"], description=request.POST["description"])
+        new_event = models.Event(eid=eid, title=request.POST["title"], description=request.POST["description"])
         new_event.save()
         new_user_event = models.User_Event(user=current_user, event=new_event)
         new_user_event.save()
