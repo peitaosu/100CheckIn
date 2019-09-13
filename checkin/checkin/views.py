@@ -184,6 +184,11 @@ def user(request, action):
 
 def index(request):
     context = {}
-    context["MAINTENANCE_MODE"] = settings.MAINTENANCE_MODE
+    if settings.MAINTENANCE_MODE:
+        context = {
+            "has_alert": True,
+            "alertclass": "alert-danger",
+            "alertmessage": "Sorry! 100 CheckIn in maintenance."
+        }
     context = show_login_user(request, context)
     return render(request, 'index.html', context)
