@@ -44,6 +44,10 @@ def event(request, action):
         return redirect("/")
     context = show_login_user(request, context)
     current_user = models.User.objects.get(email=request.session["email"])
+    context["couple"] = current_user.name
+    if current_user.link != "":
+        linked_user = models.User.objects.get(email=current_user.link)
+        context["couple"] = "{} & {}".format(current_user.name, linked_user.name)
     if action == "/add":
         return render(request, 'add.html', context)
     elif action == "/new":
