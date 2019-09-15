@@ -14,6 +14,38 @@ import datetime
 from sqlite3 import OperationalError
 from . import models
 
+ALERRS = {
+    "EMAIL_REGISTERED": {
+        "has_alert": True,
+        "alertclass": "alert-danger",
+        "alertmessage": "You email address was already registered, please check again."
+    },
+    "EMAIL_NOT_REGISTERED": {
+        "has_alert": True,
+        "alertclass": "alert-danger",
+        "alertmessage": "You email was not registered, please check again or register this email."
+    },
+    "EMAIL_NOT_EXISTS": {
+        "has_alert": True,
+        "alertclass": "alert-danger",
+        "alertmessage": "The user email you want to link is not exists. Please check the email again."
+    },
+    "NO_LINK": {
+        "has_alert": True,
+        "alertclass": "alert-danger",
+        "alertmessage": "You haven't link a user. Please link a user with email in your profile page."
+    },
+    "NOT_LINKED": {
+        "has_alert": True,
+        "alertclass": "alert-danger",
+        "alertmessage": "The user you linked haven't link you yet. Please ask him\her to link you with your email in his\her profile page."
+    },
+    "IN_MAINTENANCE": {
+        "has_alert": True,
+        "alertclass": "alert-danger",
+        "alertmessage": "Sorry! 100 CheckIn in maintenance."
+    }
+}
 def hash_code(source):
     hash = hashlib.sha256()
     hash.update(source.encode())
@@ -109,11 +141,7 @@ def user(request, action):
         return redirect("/")
     if action == "/register":
         if models.User.objects.filter(email=request.POST["email"]).count() > 0:
-            context = {
-                "has_alert": True,
-                "alertclass": "alert-danger",
-                "alertmessage": "You email address was already registered, please check again."
-            }
+            context = ALERRS["EMAIL_REGISTERED"]
             return render(request, 'index.html', context)
         new_user = models.User(email=request.POST["email"], password=hash_code(request.POST["password"]))
         if "name" in request.POST:
@@ -124,11 +152,7 @@ def user(request, action):
         return redirect("/user")
     elif action == "/login":
         if models.User.objects.filter(email=request.POST["email"]).count() == 0:
-            context = {
-                "has_alert": True,
-                "alertclass": "alert-danger",
-                "alertmessage": "You email was not registered, please check again or register this email."
-            }
+            context = ALERRS["EMAIL_NOT_REGISTERED"]
             return render(request, 'index.html', context)
         user = models.User.objects.get(email=request.POST["email"])
         if user.password == hash_code(request.POST["password"]):
@@ -144,11 +168,7 @@ def user(request, action):
         if request.POST["link"] != "":
             user.link = request.POST["link"]
             if models.User.objects.filter(email=user.link).count() == 0:
-                context = {
-                    "has_alert": True,
-                    "alertclass": "alert-danger",
-                    "alertmessage": "The user email you want to link {} is not exists. Please check the email again.".format(user.link)
-                }
+                context = ALERRS["EMAIL_NOT_EXISTS"]
                 context = show_login_user(request, context)
                 return render(request, 'index.html', context)
         user.save()
@@ -161,20 +181,12 @@ def user(request, action):
             return redirect("/")
         user = models.User.objects.get(email=request.session["email"])
         if user.link == "":
-            context = {
-                "has_alert": True,
-                "alertclass": "alert-danger",
-                "alertmessage": "You haven't link a user. Please link a user with email in your profile page."
-            }
+            context = ALERRS["NO_LINK"]
             context = show_login_user(request, context)
             return render(request, 'index.html', context)
         linked_user = models.User.objects.get(email=user.link)
         if linked_user.link != user.email:
-            context = {
-                "has_alert": True,
-                "alertclass": "alert-danger",
-                "alertmessage": "The user you linked haven't link you yet. Please ask him\her to link you with your email in his\her profile page."
-            }
+            context = ALERRS["NOT_LINKED"]
             context = show_login_user(request, context)
             return render(request, 'index.html', context)
         context["profile"] = linked_user
@@ -189,10 +201,6 @@ def user(request, action):
 def index(request):
     context = {}
     if settings.MAINTENANCE_MODE:
-        context = {
-            "has_alert": True,
-            "alertclass": "alert-danger",
-            "alertmessage": "Sorry! 100 CheckIn in maintenance."
-        }
+        context = ALERRS["IN_MAINTENANCE"]
     context = show_login_user(request, context)
     return render(request, 'index.html', context)
