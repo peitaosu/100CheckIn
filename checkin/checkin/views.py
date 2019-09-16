@@ -113,6 +113,18 @@ def event(request, action):
         event = models.Event.objects.get(eid=request.POST["eid"])
         event.delete()
         return redirect("/event")
+    elif action == "/export":
+        import csv
+        response = HttpResponse(content_type="text/csv")
+        response["Content-Disposition"] = 'attachment; filename="events.csv"'
+        writer = csv.writer(response)
+        writer.writerow(["ID", "Title", "Description", "Status"])
+        for my_event in models.User_Event.objects.all().filter(user=current_user):
+            writer.writerow([my_event.event.eid, my_event.event.title, my_event.event.description, my_event.event.status])
+        if current_user.link != "":
+            for linked_event in models.User_Event.objects.all().filter(user=models.User.objects.get(email=current_user.link)):
+                writer.writerow([linked_event.event.eid, linked_event.event.title, linked_event.event.description, linked_event.event.status])
+        return response
     else:
         all_my_events = models.User_Event.objects.all().filter(user=current_user)
         total = len(all_my_events)
