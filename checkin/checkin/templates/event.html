@@ -7,8 +7,12 @@
             <div class="panel panel-default">
                 <div class="col-md-12">
                     <div class="panel-heading">Progress: {{ couple }}</div>
+                    {% if complete == total %}
+                    <div class="progress progress-striped">
+                    {% else %}
                     <div class="progress progress-striped active">
-                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ percent }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ percent }}%">
+                    {% endif %}
+                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ percent }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ percent }}%">
                         <span>{{ complete }}/{{ total }} Completed</span>
                         </div>
                     </div>
