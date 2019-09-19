@@ -42,13 +42,13 @@
                             <td><i class="glyphicon glyphicon-ok-sign"></i>&nbsp;&nbsp;&nbsp;&nbsp;Done at {{ event.checkin_time }}</td>
                             <td>
                                 <a href="/event/detail?eid={{ event.eid }}">
-                                    &nbsp;<i class="glyphicon glyphicon-info-sign"></i>&nbsp;&nbsp;Checkin
+                                    &nbsp;<i class="glyphicon glyphicon-info-sign"></i>&nbsp;&nbsp;Detail
                                 </a>
                             {% else %}
                             <td><i class="glyphicon glyphicon-plus-sign"></i>&nbsp;&nbsp;&nbsp;&nbsp;Added</td>
                             <td>
                                 <a href="/event/detail?eid={{ event.eid }}">
-                                    &nbsp;<i class="glyphicon glyphicon-info-sign"></i>&nbsp;&nbsp;Detail
+                                    &nbsp;<i class="glyphicon glyphicon-info-sign"></i>&nbsp;&nbsp;Checkin
                                 </a>
                             {% endif %}
                                 <a href="/event/delete?eid={{ event.eid }}">
