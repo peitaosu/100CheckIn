@@ -215,4 +215,7 @@ def index(request):
     if settings.MAINTENANCE_MODE:
         context = ALERRS["IN_MAINTENANCE"]
     context = show_login_user(request, context)
-    return render(request, 'index.html', context)
+    if "user_login" in context:
+        return redirect("/event")
+    else:
+        return render(request, 'index.html', context)
