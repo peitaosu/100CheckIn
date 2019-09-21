@@ -25,18 +25,18 @@
                 <canvas id="canvas"></canvas>
             </div>        
         </div>
-        <div id="retake_div">
-            <img id="photo" src="" class="img-rounded img-responsive">
-            <button id="retake" type="button" class="btn btn-primary btn-block">Retake</button>
-            <form method="post">
-                {% csrf_token %}
+        <form method="post">
+        {% csrf_token %}
+            <div id="retake_div">
+                <img id="photo" src="" class="img-rounded img-responsive">
+                <button id="retake" type="button" class="btn btn-primary btn-block">Retake</button>
                 <input id="img_save" type="text" name="img_save" value=""/>
                 <input id="eid" type="text" name="eid" value="{{ detail.eid }}"/>
-                <label>Note</label>
-                <textarea id="note" name="note" rows="3"></textarea>
-                <button id="done" type="submit" class="btn btn-primary btn-success" formaction="/event/update">Done</button>
-            </form>
-        </div>
+            </div>
+            <label>Note</label>
+            <input id="note" name="note" placeholder="{{ detail.note }}"></input>
+            <button id="done" type="submit" class="btn btn-primary btn-success" formaction="/event/update">Done</button>
+        </form>
     </div>
     {% load static %}
     <script type="text/javascript" src={% static "js/custom.image.js" %}></script>

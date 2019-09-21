@@ -39,11 +39,9 @@
     }
 
     function noCamera(error) {
-        if (error.name == 'NotAllowedError') {
-            hasCameraPermission = false;
-            take_div.style.visibility = "none";
-            retake_div.style.visibility = "none";
-        }
+        hasCameraPermission = false;
+        take_div.style.display = "none";
+        retake_div.style.display = "none";
     }
 
     function gotDevices(deviceInfos) {
