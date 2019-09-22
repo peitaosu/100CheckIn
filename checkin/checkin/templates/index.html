@@ -7,5 +7,26 @@
             <strong>100 CheckIn</strong> is a check-in/to-do website for couples.
         </div>
     </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">Completed Couples</div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>User</th>
+                    <th>Completation</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for completed_user in completed_users %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ completed_user.name }}</td>
+                    <td>{{ completed_user.completation }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
 {% endblock %}
