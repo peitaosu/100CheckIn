@@ -34,7 +34,7 @@
                 <input id="eid" type="text" name="eid" value="{{ detail.eid }}"/>
             </div>
             <label>Note</label>
-            <input id="note" name="note" placeholder="{{ detail.note }}"></input>
+            <input id="note" name="note">{{ detail.note }}</input>
             <button id="done" type="submit" class="btn btn-primary btn-success" formaction="/event/update">Done</button>
         </form>
     </div>
