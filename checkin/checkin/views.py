@@ -109,6 +109,14 @@ def event(request, action):
         event.save()
         context["detail"] = event
         return render(request, 'detail.html', context)
+    elif action == "/reset":
+        event = models.Event.objects.get(eid=request.POST["eid"])
+        event.picture = ""
+        event.note = ""
+        event.status = "ADDED"
+        event.checkin_time = ""
+        event.save()
+        return redirect("/event")
     elif action == "/delete":
         event = models.Event.objects.get(eid=request.POST["eid"])
         event.delete()

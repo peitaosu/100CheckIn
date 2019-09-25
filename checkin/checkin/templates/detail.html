@@ -31,11 +31,12 @@
                 <img id="photo" src="" class="img-rounded img-responsive">
                 <button id="retake" type="button" class="btn btn-primary btn-block">Retake</button>
                 <input id="img_save" type="text" name="img_save" value=""/>
-                <input id="eid" type="text" name="eid" value="{{ detail.eid }}"/>
             </div>
+            <input id="eid" type="text" name="eid" value="{{ detail.eid }}"/>
             <label>Note</label>
             <input id="note" name="note">{{ detail.note }}</input>
             <button id="done" type="submit" class="btn btn-primary btn-success" formaction="/event/update">Done</button>
+            <button id="reset" type="submit" class="btn btn-primary btn-success" formaction="/event/reset">Reset Status</button>
         </form>
     </div>
     {% load static %}
